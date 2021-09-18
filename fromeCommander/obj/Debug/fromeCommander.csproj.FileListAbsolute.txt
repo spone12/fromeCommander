@@ -1,0 +1,10 @@
+F:\Visual studio\fromeCommander\fromeCommander\bin\Debug\fromeCommander.exe.config
+F:\Visual studio\fromeCommander\fromeCommander\bin\Debug\fromeCommander.exe
+F:\Visual studio\fromeCommander\fromeCommander\bin\Debug\fromeCommander.pdb
+F:\Visual studio\fromeCommander\fromeCommander\obj\Debug\fromeCommander.csproj.AssemblyReference.cache
+F:\Visual studio\fromeCommander\fromeCommander\obj\Debug\fromeCommander.Properties.Resources.resources
+F:\Visual studio\fromeCommander\fromeCommander\obj\Debug\fromeCommander.csproj.GenerateResource.cache
+F:\Visual studio\fromeCommander\fromeCommander\obj\Debug\fromeCommander.csproj.CoreCompileInputs.cache
+F:\Visual studio\fromeCommander\fromeCommander\obj\Debug\fromeCommander.exe
+F:\Visual studio\fromeCommander\fromeCommander\obj\Debug\fromeCommander.pdb
+F:\Visual studio\fromeCommander\fromeCommander\obj\Debug\fromeCommander.fromeCommander.resources
