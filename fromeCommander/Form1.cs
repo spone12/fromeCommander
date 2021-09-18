@@ -60,21 +60,30 @@ namespace fromeCommander
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            textBox.Clear();
-            // получаем выбранный файл
+            textBox.Clear(); //clear
+
             selectedFilePath = openFileDialog1.FileName;
-            // читаем файл в строку
+
             string fileText = System.IO.File.ReadAllText(selectedFilePath);
             textBox.Text = fileText;
 
+            copyFile.Enabled = true;
             saveAs.Enabled = true;
+            fileInfo.Enabled = true;
             deleteFile.Enabled = true;
             textBox.ReadOnly = false;
         }
 
         private void deleteFile_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Вы действительно хотите удалить файл ?", "Удаление файла", MessageBoxButtons.YesNo);
+            string fileName = Path.GetFileName(selectedFilePath);
+
+            DialogResult dialogResult = MessageBox.Show(
+                "Вы действительно хотите удалить файл " + fileName + "?",
+                "Удаление файла",
+                MessageBoxButtons.YesNo
+            );
+
             if (dialogResult == DialogResult.Yes)
             {
                 File.Delete(selectedFilePath);
@@ -86,6 +95,7 @@ namespace fromeCommander
             Stream myStream;
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
+            saveFileDialog.FileName = "unknown.txt";
             saveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
             saveFileDialog.FilterIndex = 2;
             saveFileDialog.RestoreDirectory = true;
@@ -94,11 +104,35 @@ namespace fromeCommander
             {
                 if ((myStream = saveFileDialog.OpenFile()) != null)
                 {
-                    File.WriteAllText(selectedFilePath, textBox.Text);
-                    // Code to write the stream goes here.
                     myStream.Close();
+                    File.WriteAllText(saveFileDialog.FileName, textBox.Text);
                 }
             }
+        }
+
+        private void fileInfo_Click(object sender, EventArgs e)
+        {
+            FileInfo thisFile = new FileInfo(selectedFilePath);
+
+            if (thisFile.Exists)
+            {
+                string thisFileInfo = "Путь: " + thisFile.FullName + "\n";
+                thisFileInfo += "Имя: " + thisFile.Name + "\n";
+                thisFileInfo += "Дата создания: " + thisFile.LastWriteTime + "\n";
+                thisFileInfo += "Дата изменения: " + thisFile.LastWriteTime + "\n";
+
+                MessageBox.Show(thisFileInfo);
+            }
+            else
+            {
+                MessageBox.Show("Файл не существует");
+            }
+            
+        }
+
+        private void copyFile_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
