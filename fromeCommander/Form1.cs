@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Net;
+using System.Net.Mail;
 
 namespace fromeCommander
 {
@@ -118,6 +120,7 @@ namespace fromeCommander
             {
                 string thisFileInfo = "Путь: " + thisFile.FullName + "\n";
                 thisFileInfo += "Имя: " + thisFile.Name + "\n";
+                thisFileInfo += "Размер: " + FileSizeFormat(thisFile.Length) + "\n";
                 thisFileInfo += "Дата создания: " + thisFile.LastWriteTime + "\n";
                 thisFileInfo += "Дата изменения: " + thisFile.LastWriteTime + "\n";
 
@@ -127,12 +130,47 @@ namespace fromeCommander
             {
                 MessageBox.Show("Файл не существует");
             }
-            
+
         }
 
         private void copyFile_Click(object sender, EventArgs e)
         {
 
+        }
+
+        public string FileSizeFormat(long lSize)
+        {
+            double size = lSize;
+            int index = 0;
+            for (; size > 1024; index++)
+                size /= 1024;
+
+            return size.ToString("0.00 " + new[] { "B", "KB", "MB", "GB", "TB" }[index]);
+        }
+
+        private void diskSpace_Click(object sender, EventArgs e)
+        {
+            string allDisks = "";
+            DriveInfo[] drives = DriveInfo.GetDrives();
+
+            foreach (DriveInfo drive in drives)
+            {
+                allDisks += " ============================== " + System.Environment.NewLine;
+                allDisks += "Диск: " + drive.Name + System.Environment.NewLine;
+                allDisks += "Тип диска: " +  drive.DriveType +  System.Environment.NewLine;
+
+                if (drive.IsReady)
+                {
+                    allDisks += "Метка тома: " + drive.VolumeLabel + System.Environment.NewLine;
+                    allDisks += "Файловая система: " +  drive.DriveFormat + System.Environment.NewLine;
+                    allDisks += "Доступно для текущего пользователя: " + FileSizeFormat(drive.AvailableFreeSpace) + System.Environment.NewLine;
+                    allDisks += "Доступно всего: " + FileSizeFormat(drive.TotalFreeSpace) + System.Environment.NewLine;
+                    allDisks += "Общий объем диска: " + FileSizeFormat(drive.TotalSize) + System.Environment.NewLine;
+                }
+            }
+
+            textBox.Clear();
+            textBox.Text = allDisks;
         }
     }
 }

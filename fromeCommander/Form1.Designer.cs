@@ -31,14 +31,15 @@ namespace fromeCommander
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.copyFile = new System.Windows.Forms.Button();
+            this.fileInfo = new System.Windows.Forms.Button();
             this.selectDirectory = new System.Windows.Forms.Button();
             this.saveAs = new System.Windows.Forms.Button();
             this.openFile = new System.Windows.Forms.Button();
             this.deleteFile = new System.Windows.Forms.Button();
             this.textBox = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.fileInfo = new System.Windows.Forms.Button();
-            this.copyFile = new System.Windows.Forms.Button();
+            this.diskSpace = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -57,6 +58,7 @@ namespace fromeCommander
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(181)))), ((int)(((byte)(124)))));
+            this.panel2.Controls.Add(this.diskSpace);
             this.panel2.Controls.Add(this.copyFile);
             this.panel2.Controls.Add(this.fileInfo);
             this.panel2.Controls.Add(this.selectDirectory);
@@ -67,6 +69,30 @@ namespace fromeCommander
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(653, 89);
             this.panel2.TabIndex = 5;
+            // 
+            // copyFile
+            // 
+            this.copyFile.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.copyFile.Enabled = false;
+            this.copyFile.Location = new System.Drawing.Point(348, 11);
+            this.copyFile.Name = "copyFile";
+            this.copyFile.Size = new System.Drawing.Size(32, 23);
+            this.copyFile.TabIndex = 6;
+            this.copyFile.Text = "C";
+            this.copyFile.UseVisualStyleBackColor = true;
+            this.copyFile.Click += new System.EventHandler(this.copyFile_Click);
+            // 
+            // fileInfo
+            // 
+            this.fileInfo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.fileInfo.Enabled = false;
+            this.fileInfo.Location = new System.Drawing.Point(298, 11);
+            this.fileInfo.Name = "fileInfo";
+            this.fileInfo.Size = new System.Drawing.Size(33, 23);
+            this.fileInfo.TabIndex = 5;
+            this.fileInfo.Text = "I";
+            this.fileInfo.UseVisualStyleBackColor = true;
+            this.fileInfo.Click += new System.EventHandler(this.fileInfo_Click);
             // 
             // selectDirectory
             // 
@@ -132,29 +158,15 @@ namespace fromeCommander
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // fileInfo
+            // diskSpace
             // 
-            this.fileInfo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.fileInfo.Enabled = false;
-            this.fileInfo.Location = new System.Drawing.Point(298, 11);
-            this.fileInfo.Name = "fileInfo";
-            this.fileInfo.Size = new System.Drawing.Size(33, 23);
-            this.fileInfo.TabIndex = 5;
-            this.fileInfo.Text = "I";
-            this.fileInfo.UseVisualStyleBackColor = true;
-            this.fileInfo.Click += new System.EventHandler(this.fileInfo_Click);
-            // 
-            // copyFile
-            // 
-            this.copyFile.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.copyFile.Enabled = false;
-            this.copyFile.Location = new System.Drawing.Point(348, 11);
-            this.copyFile.Name = "copyFile";
-            this.copyFile.Size = new System.Drawing.Size(32, 23);
-            this.copyFile.TabIndex = 6;
-            this.copyFile.Text = "C";
-            this.copyFile.UseVisualStyleBackColor = true;
-            this.copyFile.Click += new System.EventHandler(this.copyFile_Click);
+            this.diskSpace.Location = new System.Drawing.Point(298, 54);
+            this.diskSpace.Name = "diskSpace";
+            this.diskSpace.Size = new System.Drawing.Size(82, 23);
+            this.diskSpace.TabIndex = 1;
+            this.diskSpace.Text = "Диски";
+            this.diskSpace.UseVisualStyleBackColor = true;
+            this.diskSpace.Click += new System.EventHandler(this.diskSpace_Click);
             // 
             // fromeCommander
             // 
@@ -183,6 +195,7 @@ namespace fromeCommander
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button fileInfo;
         private System.Windows.Forms.Button copyFile;
+        private System.Windows.Forms.Button diskSpace;
     }
 }
 
