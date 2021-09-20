@@ -69,6 +69,7 @@ namespace fromeCommander
             string fileText = System.IO.File.ReadAllText(selectedFilePath);
             textBox.Text = fileText;
 
+            saveFile.Enabled = false;
             copyFile.Enabled = true;
             saveAs.Enabled = true;
             fileInfo.Enabled = true;
@@ -108,6 +109,7 @@ namespace fromeCommander
                 {
                     myStream.Close();
                     File.WriteAllText(saveFileDialog.FileName, textBox.Text);
+                    selectedFilePath = saveFileDialog.FileName;
                 }
             }
         }
@@ -116,8 +118,13 @@ namespace fromeCommander
         {
             FileInfo thisFile = new FileInfo(selectedFilePath);
 
-            if (thisFile.Exists)
+            try
             {
+                if (!thisFile.Exists)
+                {
+                    throw new Exception("Файл не существует!");
+                }
+
                 string thisFileInfo = "Путь: " + thisFile.FullName + "\n";
                 thisFileInfo += "Имя: " + thisFile.Name + "\n";
                 thisFileInfo += "Размер: " + FileSizeFormat(thisFile.Length) + "\n";
@@ -126,11 +133,10 @@ namespace fromeCommander
 
                 MessageBox.Show(thisFileInfo);
             }
-            else
+            catch (Exception exc)
             {
-                MessageBox.Show("Файл не существует");
+                MessageBox.Show(exc.Message);
             }
-
         }
 
         private void copyFile_Click(object sender, EventArgs e)
@@ -155,22 +161,49 @@ namespace fromeCommander
 
             foreach (DriveInfo drive in drives)
             {
-                allDisks += " ============================== " + System.Environment.NewLine;
-                allDisks += "Диск: " + drive.Name + System.Environment.NewLine;
-                allDisks += "Тип диска: " +  drive.DriveType +  System.Environment.NewLine;
+                allDisks += "   " + Environment.NewLine;
+                allDisks += "Диск: " + drive.Name + Environment.NewLine;
+                allDisks += "   Тип диска: " +  drive.DriveType +  Environment.NewLine;
 
                 if (drive.IsReady)
                 {
-                    allDisks += "Метка тома: " + drive.VolumeLabel + System.Environment.NewLine;
-                    allDisks += "Файловая система: " +  drive.DriveFormat + System.Environment.NewLine;
-                    allDisks += "Доступно для текущего пользователя: " + FileSizeFormat(drive.AvailableFreeSpace) + System.Environment.NewLine;
-                    allDisks += "Доступно всего: " + FileSizeFormat(drive.TotalFreeSpace) + System.Environment.NewLine;
-                    allDisks += "Общий объем диска: " + FileSizeFormat(drive.TotalSize) + System.Environment.NewLine;
+                    allDisks += "   Метка тома: " + drive.VolumeLabel + Environment.NewLine;
+                    allDisks += "   Файловая система: " +  drive.DriveFormat + Environment.NewLine;
+                    allDisks += "   Доступно для текущего пользователя: " + FileSizeFormat(drive.AvailableFreeSpace) + Environment.NewLine;
+                    allDisks += "   Доступно всего: " + FileSizeFormat(drive.TotalFreeSpace) + Environment.NewLine;
+                    allDisks += "   Общий объем диска: " + FileSizeFormat(drive.TotalSize) + Environment.NewLine;
                 }
             }
 
             textBox.Clear();
             textBox.Text = allDisks;
         }
+
+        private void saveFile_Click(object sender, EventArgs e)
+        {
+            FileInfo thisFile = new FileInfo(selectedFilePath);
+
+            try
+            {
+                if (!thisFile.Exists)
+                {
+                    throw new Exception("Файл не существует!");
+                }
+            
+                File.WriteAllText(selectedFilePath, textBox.Text);
+                saveFile.Enabled = false;
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+            
+        }
+
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+            saveFile.Enabled = true;
+        }
+
     }
 }
